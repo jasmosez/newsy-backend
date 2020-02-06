@@ -1,3 +1,3 @@
 class AuthorSerializer < ActiveModel::Serializer
-  attributes :id, :image, :articles
+  attributes :id, :name, :image, :articles
 end
