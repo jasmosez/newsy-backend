@@ -8,6 +8,14 @@ Bundler.require(*Rails.groups)
 
 module NewsyBackend
   class Application < Rails::Application
+    Rails.application.config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+          headers: :any,
+          methods: [:get, :post, :put, :patch, :delete, :options, :head]
+      end
+    end
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
@@ -16,13 +24,6 @@ module NewsyBackend
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options]
-      end
-    end
-    
   end
 end
 
