@@ -19,6 +19,6 @@ class AuthorsController < ApplicationController
     private
 
     def author_params
-        params.require(:author).permit(:image)
+        params.require(:author).permit(:image, :twitter)
     end
 end

@@ -1,5 +1,5 @@
 class AuthorSerializer < ActiveModel::Serializer
-  attributes :id, :name, :image, :article_count
+  attributes :id, :name, :image, :article_count, :twitter
 end
 
 class ShowAuthorSerializer < AuthorSerializer
