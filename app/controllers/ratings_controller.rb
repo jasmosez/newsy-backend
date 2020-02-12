@@ -9,7 +9,6 @@ class RatingsController < ApplicationController
   end
   
   def create
-    byebug
     new_rating = Rating.create(rating_params)
     render json: new_rating
   end
