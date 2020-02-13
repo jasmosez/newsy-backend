@@ -21,7 +21,7 @@ class RatingsController < ApplicationController
 
   def destroy
     rating = Rating.find(params[:id].to_i)
-    rating.delete
+    rating.destroy
   end
 
   private

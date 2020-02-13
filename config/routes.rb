@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :articles, only: [:index, :show]
   resources :publications, only: [:index, :show]
-  resources :ratings, only: [:show, :create, :update, :delete]
+  resources :ratings, only: [:show, :create, :update, :destroy]
   resources :authors, only: [:index, :show, :update]
   
   post '/signup', to: 'users#create'
