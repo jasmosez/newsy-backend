@@ -74,8 +74,8 @@ end
 
 
 ##########################################################
-code to seed articles from NYTimes API
-API limits to 120 articles per minute, hence the sleep instruction
+# code to seed articles from NYTimes API
+# API limits to 120 articles per minute, hence the sleep instruction
 ##########################################################
 
 page = 0
@@ -200,8 +200,63 @@ end
 
 
 
+
 # byebug
 # 0
 
-    # article_hash = {publication_id: 57, title: article["headline"]["main"],author: article["byline"]["original"],description: article["abstract"],url: article["web_url"],publishedAt: article["pub_date"]}
+# article_hash = {publication_id: 57, title: article["headline"]["main"],author: article["byline"]["original"],description: article["abstract"],url: article["web_url"],publishedAt: article["pub_date"]}
 
+
+# ################################################
+# METHODS TO POPULATE DUMMY IMAGES AND RATNGS
+# These are not called in this seeds.rb file, but can be copied and pasted to a console
+# ################################################
+
+# method to populate images for articles that don't have any
+def populate_missing_article_images
+  no_imgs = Article.all.select {|a| !a.urlToImage}
+
+  url = "https://picsum.photos/450"
+
+  no_imgs.each do |img|
+      response = RestClient.get(url)    
+      id = response.headers[:picsum_id]
+      
+      # parse response string into parsed_string
+      parsed_url = "https://i.picsum.photos/id/#{id}/300/200.jpg"
+
+      img.update(urlToImage: parsed_url)
+  end
+end
+
+# replace POLITICO default images
+def replace_politico_article_images
+  pol_imgs = Article.all.select {|a| a.urlToImage == "https://static.politico.com/da/f5/44342c424c68b675719324b1106b/politico.jpg"}
+  
+  url = "https://picsum.photos/450"
+
+  pol_imgs.each do |img|
+      response = RestClient.get(url)    
+      id = response.headers[:picsum_id]
+      
+      # parse response string into parsed_string
+      parsed_url = "https://i.picsum.photos/id/#{id}/300/200.jpg"
+
+      img.update(urlToImage: parsed_url)
+  end
+end
+
+# add ratings!
+def populate_ratings
+  options = Array.new(11) {|i| (i - 5).to_s }
+
+  2000.times do
+    user = User.all.sample
+    author = Author.all.sample
+    likeability = options.sample
+    integrity = options.sample
+
+    Rating.create(user_id: user.id, author_id: author.id, likeability: likeability, integrity: integrity)
+
+  end
+end
