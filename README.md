@@ -30,5 +30,5 @@ Note that /db/seeds.rb contains, but does not call some methods for populating d
 There is not test coverage at this time
 
 # Let me know what you think!
-Newsy was built in collaboration with shakilabdin
+Newsy was built in collaboration with [shakilabdin](https://github.com/shakilabdin)
 
