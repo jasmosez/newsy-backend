@@ -12,7 +12,7 @@ require 'json'
 
 
 
-newsapi = News.new("e6c6bd1756024aafb44958a68870e0a5")             
+newsapi = News.new(ENV["NEWSAPI_KEY"])             
 
 ##########################################################
 # Used to seed Publication table on a first pass
@@ -81,7 +81,7 @@ end
 page = 0
 articles_array = []
 begin
-  response = RestClient.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=Vke0ScEw3x4w9lNJZNAHF7F49Q0QvM5m&begin_date=20200105&end_date=20200205&fq=news_desk:Politics&fl=headline,byline,web_url,abstract,pub_date&page=#{page}")
+  response = RestClient.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=#{ENV["NYTIMES_API_KEY"]}&begin_date=20200105&end_date=20200205&fq=news_desk:Politics&fl=headline,byline,web_url,abstract,pub_date&page=#{page}")
   json = JSON.parse(response)
   json["response"]["docs"].each do |article|
     puts "page #{page}"
